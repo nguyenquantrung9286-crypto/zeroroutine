@@ -78,18 +78,18 @@ const messageVariants: Variants = {
   }),
 };
 
-function WhatsAppChat({ demo, isActive }: { demo: Demo; isActive: boolean }) {
+function TelegramChat({ demo, isActive }: { demo: Demo; isActive: boolean }) {
   return (
     <div className="flex flex-col h-full">
-      {/* WhatsApp header */}
-      <div className="flex items-center gap-3 p-4 bg-[#075E54] text-white rounded-t-2xl">
+      {/* Telegram header */}
+      <div className="flex items-center gap-3 p-4 bg-[#24A1DE] text-white rounded-t-2xl">
         <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-lg">
           {demo.emoji}
         </div>
         <div className="flex flex-col">
           <span className="font-bold text-sm">ИИ-Администратор</span>
           <span className="text-xs text-white/70 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 bg-green-400 rounded-full inline-block" />
+            <span className="w-1.5 h-1.5 bg-sky-200 rounded-full inline-block" />
             онлайн 24/7
           </span>
         </div>
@@ -97,7 +97,7 @@ function WhatsAppChat({ demo, isActive }: { demo: Demo; isActive: boolean }) {
       </div>
 
       {/* Chat body */}
-      <div className="flex-1 overflow-y-auto bg-[#ece5dd] p-4 flex flex-col gap-3 min-h-[320px]">
+      <div className="flex-1 overflow-y-auto bg-[#E5EAEF] p-4 flex flex-col gap-3 min-h-[320px]">
         {isActive
           ? demo.messages.map((msg, i) => (
               <motion.div
@@ -111,7 +111,7 @@ function WhatsAppChat({ demo, isActive }: { demo: Demo; isActive: boolean }) {
                 <div
                   className={`max-w-[80%] rounded-2xl px-4 py-2.5 shadow-sm text-sm leading-relaxed relative ${
                     msg.role === "client"
-                      ? "bg-[#dcf8c6] text-[#111] rounded-br-sm"
+                      ? "bg-[#EEFFDE] text-[#111] rounded-br-sm"
                       : "bg-white text-[#111] rounded-bl-sm"
                   }`}
                 >
@@ -131,7 +131,7 @@ function WhatsAppChat({ demo, isActive }: { demo: Demo; isActive: boolean }) {
                 <div
                   className={`max-w-[80%] rounded-2xl px-4 py-2.5 shadow-sm text-sm leading-relaxed opacity-40 ${
                     msg.role === "client"
-                      ? "bg-[#dcf8c6] text-[#111]"
+                      ? "bg-[#EEFFDE] text-[#111]"
                       : "bg-white text-[#111]"
                   }`}
                 >
@@ -179,7 +179,7 @@ export function VideoDemo() {
             Продукт в действии
           </h2>
           <p className="text-xl text-on-surface-variant leading-relaxed">
-            Посмотрите, как ИИ-администратор общается с клиентами в WhatsApp — в реальном времени, без скриптов, 24/7.
+            Посмотрите, как ИИ-администратор общается с клиентами в Telegram — в реальном времени, без скриптов, 24/7.
           </p>
         </motion.div>
 
@@ -254,7 +254,7 @@ export function VideoDemo() {
                 </div>
               </motion.div>
 
-              {/* Right: WhatsApp chat */}
+              {/* Right: Telegram chat */}
               <motion.div
                 variants={cardVariants}
                 className="relative rounded-2xl overflow-hidden shadow-2xl border border-outline-variant/20"
@@ -271,7 +271,7 @@ export function VideoDemo() {
                     </button>
                   </div>
                 )}
-                <WhatsAppChat demo={demos[activeTab]} isActive={!!played[demos[activeTab].id]} />
+                <TelegramChat demo={demos[activeTab]} isActive={!!played[demos[activeTab].id]} />
               </motion.div>
             </motion.div>
           </motion.div>

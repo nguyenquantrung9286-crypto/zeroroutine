@@ -85,9 +85,9 @@ export function Hero({ onOpenModal }: HeroProps) {
               <div className="w-14 h-14 rounded-full bg-primary-fixed/60 flex items-center justify-center text-primary shrink-0">
                 <BrainCircuit size={28} />
               </div>
-              <div className="flex flex-col gap-3 w-full">
-                <div className="h-3 bg-surface-container-high rounded w-3/4" />
-                <div className="h-2 bg-surface-container rounded w-1/2" />
+              <div className="flex flex-col gap-1 w-full">
+                <span className="font-semibold text-on-surface text-sm">Моментальные ответы</span>
+                <span className="text-xs text-on-surface-variant">Ответ за 0.8 секунд 24/7</span>
               </div>
             </motion.div>
 
@@ -99,9 +99,9 @@ export function Hero({ onOpenModal }: HeroProps) {
               <div className="w-14 h-14 rounded-full bg-secondary-fixed/50 flex items-center justify-center text-secondary shrink-0">
                 <Bot size={28} />
               </div>
-              <div className="flex flex-col gap-3 w-full">
-                <div className="h-3 bg-surface-container-high rounded w-2/3" />
-                <div className="h-2 bg-surface-container rounded w-full" />
+              <div className="flex flex-col gap-1 w-full">
+                <span className="font-semibold text-on-surface text-sm">Удержание клиентов</span>
+                <span className="text-xs text-on-surface-variant">+20% спасённых заявок ночью</span>
               </div>
             </motion.div>
 
@@ -113,9 +113,9 @@ export function Hero({ onOpenModal }: HeroProps) {
               <div className="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-error shrink-0">
                 <TrendingDown size={20} />
               </div>
-              <div className="flex flex-col gap-2 w-full">
-                <div className="h-2 bg-error/20 rounded w-1/3" />
-                <div className="h-2 bg-error/10 rounded w-1/4" />
+              <div className="flex flex-col gap-0.5 w-full">
+                <span className="font-semibold text-error text-sm">Экономия на ФОТ</span>
+                <span className="text-xs text-error/80">-40 000 ₽ на зарплату администратора</span>
               </div>
             </motion.div>
           </div>
