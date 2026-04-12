@@ -15,9 +15,9 @@ export function Navbar({ onOpenModal }: NavbarProps) {
 
   const links = [
     { href: "#solutions", label: "Решения" },
+    { href: "#demo", label: "Демо" },
     { href: "#roi", label: "Эффективность" },
-    { href: "#prices", label: "Цены" },
-    { href: "#cases", label: "Кейсы" },
+    { href: "#cases", label: "Контакты" },
   ];
 
   return (

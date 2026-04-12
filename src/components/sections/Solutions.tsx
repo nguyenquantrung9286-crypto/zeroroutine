@@ -60,16 +60,20 @@ export function Solutions({ onOpenModal }: SolutionsProps) {
                 ИИ-Администратор
               </h3>
               <p className="text-xl text-on-primary/80 mb-10 max-w-2xl leading-relaxed">
-                Полная замена человеческого фактора в коммуникациях. Прием звонков, запись на услуги, обработка возражений и ведение CRM без пауз и перерывов.
+                Полная замена ставки администратора. Принимает звонки, записывает клиентов, обрабатывает возражения и ведёт CRM — без перерывов, выходных и больничных. Удерживает до&nbsp;20% заявок, которые иначе теряются в&nbsp;пиковые часы.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 text-on-primary font-medium bg-on-primary-fixed/20 p-6 rounded-2xl w-fit backdrop-blur-md mb-8">
                 <div className="flex items-center gap-3">
-                  <span className="text-lg">⚡</span> Установка: 3 дня
+                  <span className="text-lg">⚡</span> Установка: 1–3 дня
                 </div>
                 <div className="hidden sm:block w-px bg-on-primary/30" />
                 <div className="flex items-center gap-3">
-                  <span className="text-lg">📈</span> Окупаемость: 450%+
+                  <span className="text-lg">💰</span> Окупаемость: 3–4 дня
+                </div>
+                <div className="hidden sm:block w-px bg-on-primary/30" />
+                <div className="flex items-center gap-3">
+                  <span className="text-lg">📈</span> ROI: 450%+
                 </div>
               </div>
 

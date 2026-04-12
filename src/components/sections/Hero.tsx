@@ -37,7 +37,7 @@ export function Hero({ onOpenModal }: HeroProps) {
             variants={itemVariants}
             className="text-xs uppercase tracking-[0.2em] font-bold text-primary mb-6 bg-primary-fixed/40 px-4 py-1.5 rounded-full"
           >
-            Трансформация бизнеса
+            ИИ-интегратор для малого бизнеса
           </motion.span>
 
           <motion.h1
@@ -51,7 +51,7 @@ export function Hero({ onOpenModal }: HeroProps) {
             variants={itemVariants}
             className="text-lg text-on-surface-variant leading-relaxed mb-10 max-w-lg"
           >
-            Мы внедряем автономных ИИ-агентов. Полная замена линейного персонала в коммуникациях и операционке. Сократите ФОТ и исключите человеческий фактор уже в этом месяце.
+            Заменяем ставку администратора ИИ-решением за 1–3 дня. Сокращаем ФОТ на 40 000 ₽/мес и удерживаем 20% заявок, которые теряются в нерабочие часы.
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -59,13 +59,13 @@ export function Hero({ onOpenModal }: HeroProps) {
               onClick={() => onOpenModal("Hero: Получить демо")}
               className="bg-gradient-to-br from-[#005235] to-[#1a6b4a] text-on-primary px-8 py-4 rounded-full font-medium active:scale-95 transition-transform flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-primary/20"
             >
-              Получить демо
+              Получить бесплатное демо
             </button>
             <a
-              href="#pricing-section"
+              href="#demo"
               className="bg-surface-container-high text-on-surface px-8 py-4 rounded-full font-medium hover:bg-surface-container-highest active:scale-95 transition-all flex items-center justify-center"
             >
-              Узнать стоимость
+              Смотреть примеры
             </a>
           </motion.div>
         </div>

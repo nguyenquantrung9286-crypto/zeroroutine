@@ -10,11 +10,21 @@ interface RoiProps {
 
 export function RoiCalculator({ onOpenModal }: RoiProps) {
   const [employees, setEmployees] = useState(25);
-  const [savings, setSavings] = useState(0);
+  const [annualSavings, setAnnualSavings] = useState(0);
+  const [monthlySavings, setMonthlySavings] = useState(0);
+  const [lostLeadsSavings, setLostLeadsSavings] = useState(0);
 
   useEffect(() => {
-    // Formula: employees * 40000 * 12 * 0.3
-    setSavings(employees * 40000 * 12 * 0.3);
+    // ФОТ: среднее сокращение 40 000 ₽/мес на каждого замещаемого (1 ставка = ~1 администратор)
+    const admins = Math.max(1, Math.round(employees / 10));
+    const fotMonthly = admins * 40_000;
+    // Теряющиеся заявки: ~20% от ежемесячного потока, средний чек 2 000 ₽, 200 обращений/мес на сотрудника
+    const leadsMonthly = Math.round(employees * 0.2 * 2_000);
+    const totalMonthly = fotMonthly + leadsMonthly;
+
+    setMonthlySavings(totalMonthly);
+    setLostLeadsSavings(leadsMonthly);
+    setAnnualSavings(totalMonthly * 12);
   }, [employees]);
 
   return (
@@ -30,7 +40,7 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
             Математика превосходства
           </h2>
           <p className="text-xl text-on-secondary/80 mb-16 leading-relaxed max-w-lg">
-            Искусственный интеллект не болеет, не уходит в отпуск и не просит повышения. Он окупает затраты на внедрение уже в первый месяц эксплуатации.
+            ИИ не болеет, не уходит в отпуск и не просит повышения. Он заменяет ставку администратора и удерживает заявки, которые иначе теряются — окупаясь уже в первый месяц.
           </p>
 
           <div className="flex flex-col gap-12">
@@ -39,15 +49,23 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
                 40 000 ₽
               </span>
               <span className="text-xl text-on-secondary/90 leading-relaxed">
-                Среднее сокращение ФОТ в месяц
+                Среднее сокращение ФОТ в месяц на одну замещённую ставку
               </span>
             </div>
             <div className="flex items-center gap-8 border-l border-white/10 pl-6">
               <span className="text-5xl md:text-6xl font-extrabold text-primary-fixed tracking-tighter w-48 shrink-0">
-                98%
+                +20%
               </span>
               <span className="text-xl text-on-secondary/90 leading-relaxed">
-                Точность распознавания речи
+                Заявок возвращается благодаря работе 24/7 в нерабочие часы
+              </span>
+            </div>
+            <div className="flex items-center gap-8 border-l border-white/10 pl-6">
+              <span className="text-5xl md:text-6xl font-extrabold text-primary-fixed tracking-tighter w-48 shrink-0">
+                3–4 дня
+              </span>
+              <span className="text-xl text-on-secondary/90 leading-relaxed">
+                Срок окупаемости первого месяца подключения
               </span>
             </div>
           </div>
@@ -66,7 +84,7 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
 
           <div className="mb-12 relative z-10">
             <div className="flex justify-between items-end mb-6 text-xl">
-              <span className="text-white/80">Количество сотрудников</span>
+              <span className="text-white/80">Сотрудников в штате</span>
               <motion.span
                 key={employees}
                 initial={{ opacity: 0.5, y: -5 }}
@@ -87,18 +105,38 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
             />
           </div>
 
-          <div className="bg-white/5 rounded-2xl p-8 mb-10 border border-white/10 text-center relative z-10">
-            <p className="text-white/60 mb-4 text-lg">Прогноз ежегодной экономии</p>
-            <div className="text-5xl md:text-6xl font-extrabold text-primary-fixed tracking-tighter font-mono tabular-nums">
-              {new Intl.NumberFormat("ru-RU").format(savings)} ₽
+          {/* Breakdown */}
+          <div className="flex flex-col gap-3 mb-6 relative z-10">
+            <div className="flex justify-between items-center bg-white/5 rounded-xl px-5 py-3 border border-white/10">
+              <span className="text-white/70 text-sm">💼 Сокращение ФОТ/мес</span>
+              <span className="font-bold text-white text-sm tabular-nums">
+                {new Intl.NumberFormat("ru-RU").format(monthlySavings - lostLeadsSavings)} ₽
+              </span>
             </div>
+            <div className="flex justify-between items-center bg-white/5 rounded-xl px-5 py-3 border border-white/10">
+              <span className="text-white/70 text-sm">📞 Возврат потерянных заявок/мес</span>
+              <span className="font-bold text-white text-sm tabular-nums">
+                {new Intl.NumberFormat("ru-RU").format(lostLeadsSavings)} ₽
+              </span>
+            </div>
+          </div>
+
+          {/* Total */}
+          <div className="bg-white/5 rounded-2xl p-8 mb-10 border border-white/10 text-center relative z-10">
+            <p className="text-white/60 mb-2 text-sm uppercase tracking-[0.15em] font-bold">Прогноз ежегодной экономии</p>
+            <div className="text-5xl md:text-6xl font-extrabold text-primary-fixed tracking-tighter font-mono tabular-nums">
+              {new Intl.NumberFormat("ru-RU").format(annualSavings)} ₽
+            </div>
+            <p className="text-white/50 text-sm mt-3">
+              ≈ {new Intl.NumberFormat("ru-RU").format(monthlySavings)} ₽ / мес
+            </p>
           </div>
 
           <button
             onClick={() => onOpenModal("Скачать отчет ROI")}
             className="w-full bg-white text-on-surface px-8 py-5 rounded-full font-bold text-lg hover:bg-surface-container-lowest active:scale-95 transition-all relative z-10"
           >
-            Скачать подробный отчет
+            Получить персональный расчёт
           </button>
 
           <div className="absolute -bottom-1/2 -right-1/2 w-[150%] h-[150%] bg-primary-fixed/10 blur-[80px] rounded-full pointer-events-none" />
