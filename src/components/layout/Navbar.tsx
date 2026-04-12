@@ -14,10 +14,10 @@ export function Navbar({ onOpenModal }: NavbarProps) {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const links = [
+    { href: "#pain", label: "Проблемы" },
     { href: "#solutions", label: "Решения" },
     { href: "#demo", label: "Демо" },
     { href: "#roi", label: "Эффективность" },
-    { href: "#cases", label: "Контакты" },
   ];
 
   return (

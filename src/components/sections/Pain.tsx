@@ -17,7 +17,7 @@ export function Pain() {
   };
 
   return (
-    <section id="prices" className="py-24 bg-surface-container-low px-6">
+    <section id="pain" className="py-24 bg-surface-container-low px-6">
       <div className="max-w-7xl mx-auto flex flex-col gap-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
