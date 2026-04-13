@@ -5,7 +5,7 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface NavbarProps {
-  onOpenModal: (source: string) => void;
+  onOpenModal?: (source: string) => void;
 }
 
 const mobileMenuVariants = {
@@ -51,7 +51,10 @@ export function Navbar({ onOpenModal }: NavbarProps) {
 
         <div className="hidden md:flex">
           <button
-            onClick={() => onOpenModal("Навигация")}
+            onClick={() => {
+              if (onOpenModal) onOpenModal("Навигация");
+              else window.location.href = "/#pricing-section";
+            }}
             className="bg-primary text-on-primary px-8 py-4 rounded-full font-medium active:scale-95 transition-transform flex items-center gap-2 hover:bg-primary-container"
           >
             Начать интеграцию
@@ -90,7 +93,8 @@ export function Navbar({ onOpenModal }: NavbarProps) {
               <button
                 onClick={() => {
                   setIsOpen(false);
-                  onOpenModal("Мобильное меню");
+                  if (onOpenModal) onOpenModal("Мобильное меню");
+                  else window.location.href = "/#pricing-section";
                 }}
                 className="bg-primary text-on-primary py-4 rounded-xl mt-4 font-bold active:scale-95"
               >

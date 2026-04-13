@@ -8,7 +8,7 @@ export const metadata = {
 export default function PrivacyPage() {
   return (
     <>
-      <Navbar onOpenModal={() => {}} />
+      <Navbar />
       <main className="flex-grow py-32 px-6 bg-surface">
         <div className="max-w-4xl mx-auto bg-surface-container-low p-10 rounded-[2rem] shadow-sm">
           <h1 className="text-4xl font-bold mb-8 text-on-background">Политика конфиденциальности</h1>
