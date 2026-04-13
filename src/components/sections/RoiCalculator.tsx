@@ -42,123 +42,125 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
   const [employees, setEmployees] = useState(25);
 
   const admins = Math.max(1, Math.round(employees / 10));
-  const fotMonthly = admins * 40_000;
-  const leadsMonthly = Math.round(employees * 0.2 * 2_000);
+  const fotMonthly = admins * 45_000;
+  const leadsMonthly = Math.round(employees * 0.2 * 2_500);
   const totalMonthly = fotMonthly + leadsMonthly;
 
-  const monthlySavings = totalMonthly;
-  const lostLeadsSavings = leadsMonthly;
   const annualSavings = totalMonthly * 12;
 
   return (
-    <section id="roi" className="py-32 md:py-40 bg-[#1b1c1c] px-6 text-on-secondary">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-start">
-
-        {/* Left: stats */}
+    <section id="roi" className="py-32 md:py-40 bg-[#1b1c1c] px-6 text-on-secondary overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-col gap-20">
+        
         <motion.div
           variants={titleVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
-          className="flex flex-col gap-4"
+          className="text-center max-w-3xl mx-auto flex flex-col gap-6"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6 text-on-secondary">
-            Математика превосходства
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+            Математика окупаемости
           </h2>
-          <p className="text-xl text-on-secondary/70 mb-16 leading-relaxed max-w-lg">
-            ИИ не болеет, не уходит в отпуск и не просит повышения. Он заменяет ставку администратора и удерживает заявки, которые иначе теряются — окупаясь уже в первый месяц.
+          <p className="text-xl text-white/60 leading-relaxed font-medium">
+            ИИ-сотрудники не болеют, не уходят в отпуск и окупаются уже в первый месяц работы.
           </p>
-
-          <div className="flex flex-col gap-14">
-            {bigStats.map(({ value, desc }) => (
-              <div key={value} className="flex flex-col gap-3 border-l-2 border-primary-fixed/30 pl-8">
-                <span className="text-6xl md:text-7xl font-extrabold text-primary-fixed tracking-tighter leading-none">
-                  {value}
-                </span>
-                <span className="text-lg text-on-secondary/70 leading-relaxed max-w-xs">
-                  {desc}
-                </span>
-              </div>
-            ))}
-          </div>
         </motion.div>
 
-        {/* Right: calculator */}
         <motion.div
           variants={cardVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
-          className="bg-white/5 rounded-[2rem] p-10 md:p-12 flex flex-col relative overflow-hidden"
+          className="grid md:grid-cols-2 gap-12 items-center bg-white/[0.03] rounded-[3rem] p-12 md:p-20 border border-white/10"
         >
-          <div className="flex items-center gap-4 mb-10">
-            <Calculator size={36} className="text-primary-fixed" />
-            <h3 className="text-2xl font-bold text-white tracking-tight">Визуализатор окупаемости</h3>
-          </div>
-
-          {/* Slider */}
-          <div className="mb-12 relative z-10">
-            <div className="flex justify-between items-end mb-6">
-              <span className="text-white/70 text-lg">Сотрудников в штате</span>
-              <motion.span
-                key={employees}
-                variants={valueVariants}
-                initial="initial"
-                animate="animate"
-                className="text-4xl font-bold text-white tabular-nums"
-              >
-                {employees}
-              </motion.span>
+          {/* Left side: Input */}
+          <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-6">
+              <div className="flex justify-between items-end">
+                <span className="text-white/50 text-xs uppercase tracking-[0.2em] font-bold">Сотрудников в штате</span>
+                <motion.span
+                  key={employees}
+                  variants={valueVariants}
+                  initial="initial"
+                  animate="animate"
+                  className="text-6xl font-extrabold text-white tabular-nums tracking-tighter"
+                >
+                  {employees}
+                </motion.span>
+              </div>
+              <input
+                type="range"
+                min="1"
+                max="100"
+                value={employees}
+                onChange={(e) => setEmployees(parseInt(e.target.value))}
+                className="minimal-slider"
+                aria-label="Ползунок количества сотрудников"
+              />
             </div>
-            <input
-              type="range"
-              min="1"
-              max="100"
-              value={employees}
-              onChange={(e) => setEmployees(parseInt(e.target.value))}
-              className="minimal-slider"
-              aria-label="Ползунок количества сотрудников"
-            />
-          </div>
 
-          {/* Breakdown */}
-          <div className="flex flex-col gap-3 mb-6 relative z-10">
-            <div className="flex justify-between items-center py-4 border-b border-white/8">
-              <span className="text-white/60">💼 Сокращение ФОТ/мес</span>
-              <span className="font-bold text-white tabular-nums">
-                {new Intl.NumberFormat("ru-RU").format(monthlySavings - lostLeadsSavings)} ₽
-              </span>
-            </div>
-            <div className="flex justify-between items-center py-4 border-b border-white/8">
-              <span className="text-white/60">📞 Возврат потерянных заявок/мес</span>
-              <span className="font-bold text-white tabular-nums">
-                {new Intl.NumberFormat("ru-RU").format(lostLeadsSavings)} ₽
-              </span>
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-between items-center py-6 border-b border-white/10">
+                <span className="text-white/60 text-lg">Сокращение ФОТ / мес</span>
+                <span className="font-bold text-white text-xl tabular-nums">
+                  {new Intl.NumberFormat("ru-RU").format(fotMonthly)} ₽
+                </span>
+              </div>
+              <div className="flex justify-between items-center py-6 border-b border-white/10">
+                <span className="text-white/60 text-lg">Возврат заявок / мес</span>
+                <span className="font-bold text-white text-xl tabular-nums">
+                  {new Intl.NumberFormat("ru-RU").format(leadsMonthly)} ₽
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Total */}
-          <div className="rounded-2xl p-8 mb-10 text-center relative z-10 bg-white/4">
-            <p className="text-white/50 mb-3 text-xs uppercase tracking-[0.18em] font-bold">Прогноз ежегодной экономии</p>
-            <div className="text-5xl md:text-6xl font-extrabold text-primary-fixed tracking-tighter font-mono tabular-nums">
-              {new Intl.NumberFormat("ru-RU").format(annualSavings)} ₽
+          {/* Right side: Result */}
+          <div className="bg-primary/20 rounded-[2.5rem] p-12 flex flex-col items-center justify-center text-center gap-8 border border-primary/20 relative group">
+            <div className="absolute inset-0 bg-primary/10 blur-[60px] rounded-full group-hover:scale-110 transition-transform duration-1000 pointer-events-none" />
+            
+            <div className="relative z-10 flex flex-col gap-2">
+              <p className="text-primary-fixed/60 text-xs uppercase tracking-[0.3em] font-bold">Ваша экономия в год</p>
+              <div className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary-fixed tracking-tight leading-none py-4">
+                {new Intl.NumberFormat("ru-RU").format(annualSavings)} ₽
+              </div>
+              <p className="text-white/40 text-lg">
+                ≈ {new Intl.NumberFormat("ru-RU").format(totalMonthly)} ₽ экономии ежемесячно
+              </p>
             </div>
-            <p className="text-white/40 text-sm mt-3">
-              ≈ {new Intl.NumberFormat("ru-RU").format(monthlySavings)} ₽ / мес
-            </p>
+
+            <button
+              onClick={() => onOpenModal("ROI Расчет")}
+              className="relative z-10 w-full bg-primary-fixed text-primary px-8 py-5 rounded-full font-bold text-xl hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-primary/20"
+            >
+              Получить полный отчет
+            </button>
           </div>
-
-          <button
-            onClick={() => onOpenModal("Скачать отчет ROI")}
-            className="w-full bg-white text-on-surface px-8 py-5 rounded-full font-bold text-lg hover:bg-surface-container-lowest active:scale-95 transition-all relative z-10"
-          >
-            Получить персональный расчёт
-          </button>
-
-          <div className="absolute -bottom-1/2 -right-1/2 w-[150%] h-[150%] bg-primary-fixed/8 blur-[80px] rounded-full pointer-events-none" />
         </motion.div>
 
+        {/* Big stats row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/10 pt-20">
+          {[
+            { value: "40 000 ₽", label: "среднее сокращение ФОТ" },
+            { value: "+20%", label: "заявок не теряется" },
+            { value: "3–4 дня", label: "окупаемость внедрения" },
+          ].map((s) => (
+            <div key={s.label} className="flex flex-col gap-3">
+              <span className="text-5xl md:text-6xl font-extrabold text-white tracking-tighter">
+                {s.value}
+              </span>
+              <span className="text-xs uppercase tracking-[0.2em] font-bold text-white/40">
+                {s.label}
+              </span>
+            </div>
+          ))}
+        </div>
+
       </div>
+    </section>
+  );
+}
     </section>
   );
 }

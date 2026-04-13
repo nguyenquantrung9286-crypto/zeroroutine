@@ -28,22 +28,7 @@ const successVariants: Variants = {
 export function Modal({ isOpen, onClose, source = "General" }: ModalProps) {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [phone, setPhone] = useState("");
-
-  const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value.replace(/\D/g, "");
-    const match = val.match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-    
-    if (!match) return;
-    
-    if (!match[2]) {
-      setPhone(match[1] === "7" || match[1] === "8" ? "+7 (" : match[1] ? "+7 (" + match[1] : "");
-      return;
-    }
-    setPhone(
-      `+7 (${match[2]}${match[3] ? ") " + match[3] : ""}${match[4] ? "-" + match[4] : ""}${match[5] ? "-" + match[5] : ""}`
-    );
-  };
+  const [contact, setContact] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +43,7 @@ export function Modal({ isOpen, onClose, source = "General" }: ModalProps) {
     onClose();
     setTimeout(() => {
       setSubmitted(false);
-      setPhone("");
+      setContact("");
     }, 300);
   };
 
@@ -90,87 +75,68 @@ export function Modal({ isOpen, onClose, source = "General" }: ModalProps) {
               aria-label="Закрыть окно"
               className="absolute top-6 right-6 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors p-2 bg-surface-container-low rounded-full"
             >
-              <X size={24} />
+              <X size={20} />
             </button>
 
             {!submitted ? (
               <div className="flex flex-col">
-                <h3 className="text-3xl font-bold tracking-tight text-on-background mb-4 mt-2">
-                  Получить демо
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-on-background mb-4 mt-2 leading-tight">
+                  {source !== "General" ? `Запросить демо: ${source}` : "Получить демо"}
                 </h3>
-                <p className="text-on-surface-variant mb-8 text-lg">
-                  Оставьте контакты и наш эксперт свяжется с вами в течение 2 часов.
+                <p className="text-[#4B5563] mb-8 text-lg">
+                  Оставьте контакты и наш эксперт свяжется с вами в ближайшее время.
                 </p>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                   <input type="hidden" name="source" value={source} />
 
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className="text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant">
-                      Имя <span className="text-error">*</span>
+                    <label htmlFor="name" className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#4B5563]">
+                      Ваше имя <span className="text-error">*</span>
                     </label>
                     <input
                       type="text"
                       id="name"
                       required
                       minLength={2}
-                      className="w-full bg-surface-container-low border-transparent rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest outline-none transition-all text-on-surface text-lg"
-                      placeholder="Ваше имя"
+                      className="w-full bg-surface-container-low border-transparent rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest outline-none transition-all text-on-surface text-lg border border-outline-variant/30"
+                      placeholder="Иван Иванов"
                     />
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="phone" className="text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant">
-                      Телефон <span className="text-error">*</span>
+                    <label htmlFor="contact" className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#4B5563]">
+                      Telegram или Email <span className="text-error">*</span>
                     </label>
                     <input
-                      type="tel"
-                      id="phone"
+                      type="text"
+                      id="contact"
                       required
-                      pattern="^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$"
-                      title="Формат: +7 (XXX) XXX-XX-XX"
-                      value={phone}
-                      onChange={handlePhoneInput}
-                      className="w-full bg-surface-container-low border-transparent rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest outline-none transition-all text-on-surface text-lg"
-                      placeholder="+7 (___) ___-__-__"
+                      value={contact}
+                      onChange={(e) => setContact(e.target.value)}
+                      className="w-full bg-surface-container-low border-transparent rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest outline-none transition-all text-on-surface text-lg border border-outline-variant/30"
+                      placeholder="@username или mail@example.com"
                     />
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="company" className="text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant">
-                      Название компании <span className="text-error">*</span>
+                    <label htmlFor="company" className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#4B5563]">
+                      Название бизнеса <span className="text-error">*</span>
                     </label>
                     <input
                       type="text"
                       id="company"
                       required
                       minLength={2}
-                      className="w-full bg-surface-container-low border-transparent rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest outline-none transition-all text-on-surface text-lg"
-                      placeholder="ООО Инновация"
+                      className="w-full bg-surface-container-low border-transparent rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest outline-none transition-all text-on-surface text-lg border border-outline-variant/30"
+                      placeholder="Название вашей компании"
                     />
-                  </div>
-
-                  <div className="flex flex-col gap-2 relative">
-                    <label htmlFor="employees" className="text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant">
-                      Количество сотрудников <span className="text-error">*</span>
-                    </label>
-                    <select
-                      id="employees"
-                      required
-                      className="w-full bg-surface-container-low border-transparent rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest outline-none transition-all text-on-surface text-lg cursor-pointer appearance-none"
-                    >
-                      <option value="1-10">1-10 человек</option>
-                      <option value="11-50">11-50 человек</option>
-                      <option value="51-200">51-200 человек</option>
-                      <option value="200+">200+ человек</option>
-                    </select>
-                    <ChevronDown className="absolute right-5 bottom-[1.125rem] text-on-surface-variant pointer-events-none" />
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-primary text-on-primary rounded-full py-5 mt-4 font-bold text-xl active:scale-95 transition-transform disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full bg-primary text-on-primary rounded-full py-5 mt-4 font-bold text-xl active:scale-95 transition-all disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-xl hover:shadow-primary/20"
                   >
                     {isSubmitting ? "Отправка..." : "Отправить заявку"}
                   </button>

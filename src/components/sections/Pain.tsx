@@ -28,83 +28,68 @@ const painPoints = [
 
 export function Pain() {
   return (
-    <section id="pain" className="py-32 md:py-40 bg-surface-container-low px-6">
-      <div className="max-w-5xl mx-auto flex flex-col gap-20">
-
-        {/* Заголовок + акцентная цифра */}
+    <section id="pain" className="py-32 md:py-40 px-6 bg-surface">
+      <div className="max-w-4xl mx-auto flex flex-col gap-24">
+        
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-10"
+          className="flex flex-col gap-6"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-on-background max-w-xl leading-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-on-background leading-[1.1]">
             Скрытые расходы убивают вашу маржу
           </h2>
-          <div className="flex flex-col md:items-end">
-            <span className="text-5xl md:text-6xl font-extrabold text-primary tracking-tighter mb-1">
-              50 000 ₽
-            </span>
-            <span className="text-xs uppercase tracking-[0.2em] font-bold text-[#4B5563]">
-              Средний ФОТ администратора в месяц
-            </span>
-          </div>
+          <p className="text-xl text-[#4B5563] max-w-2xl">
+            Малый бизнес теряет до 30% прибыли из-за неэффективного управления коммуникациями и человеческого фактора.
+          </p>
         </motion.div>
 
-        {/* Вертикальный список болей */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="flex flex-col gap-12"
+          className="flex flex-col gap-16"
         >
           {painPoints.map(({ icon: Icon, title, desc }) => (
             <motion.div
               key={title}
               variants={fadeUp}
-              className="flex items-start gap-8"
+              className="flex flex-col md:flex-row items-start gap-8 md:gap-12"
             >
-              <div className="w-12 h-12 shrink-0 rounded-2xl bg-error-container flex items-center justify-center mt-1">
-                <Icon size={24} className="text-error" />
+              <div className="w-16 h-16 shrink-0 rounded-2xl bg-error-container/50 flex items-center justify-center">
+                <Icon size={32} className="text-error" />
               </div>
-              <div className="flex flex-col gap-2">
-                <h3 className="text-2xl font-bold text-on-surface">{title}</h3>
-                <p className="text-lg text-[#4B5563] leading-relaxed max-w-xl">{desc}</p>
+              <div className="flex flex-col gap-3">
+                <h3 className="text-2xl md:text-3xl font-bold text-on-surface tracking-tight">{title}</h3>
+                <p className="text-lg md:text-xl text-[#4B5563] leading-relaxed max-w-2xl">{desc}</p>
               </div>
             </motion.div>
           ))}
-        </motion.div>
 
-        {/* Акцентный блок — текучка кадров */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
-          className="flex flex-col md:flex-row items-start md:items-center gap-8 bg-surface-container-lowest rounded-3xl p-10 md:p-14 border border-outline-variant/30 shadow-sm"
-        >
-          <div className="w-14 h-14 shrink-0 rounded-2xl bg-error-container flex items-center justify-center">
-            <Users size={28} className="text-error" />
-          </div>
-          <div className="flex flex-col gap-3 flex-1">
-            <h3 className="text-2xl font-bold text-on-surface">Текучка кадров</h3>
-            <p className="text-lg text-[#4B5563] leading-relaxed">
-              Поиск и обучение нового сотрудника стоит бизнесу 3-х месячных ФОТ.
-            </p>
-          </div>
-          <div className="flex flex-col items-center md:items-end shrink-0">
-            <span className="text-5xl md:text-6xl font-extrabold text-error tracking-tighter leading-none">
-              3 ФОТ
-            </span>
-            <span className="text-xs uppercase tracking-[0.15em] font-bold text-[#4B5563] mt-1 text-center md:text-right">
-              стоимость замены одного сотрудника
-            </span>
-          </div>
+          {/* Special mention for turnover as a list item too */}
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col md:flex-row items-start gap-8 md:gap-12"
+          >
+            <div className="w-16 h-16 shrink-0 rounded-2xl bg-error-container/50 flex items-center justify-center">
+              <Users size={32} className="text-error" />
+            </div>
+            <div className="flex flex-col gap-3">
+              <h3 className="text-2xl md:text-3xl font-bold text-on-surface tracking-tight">Текучка кадров</h3>
+              <p className="text-lg md:text-xl text-[#4B5563] leading-relaxed max-w-2xl">
+                Поиск и обучение нового сотрудника стоит бизнесу 3-х месячных ФОТ. ИИ-сотрудник не увольняется.
+              </p>
+            </div>
+          </motion.div>
         </motion.div>
 
       </div>
+    </section>
+  );
+}
       <span id="pricing-section"></span>
     </section>
   );

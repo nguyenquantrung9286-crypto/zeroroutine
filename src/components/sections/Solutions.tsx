@@ -43,53 +43,58 @@ export function Solutions({ onOpenModal }: SolutionsProps) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="relative w-full min-h-[520px] bg-primary rounded-[2rem] overflow-hidden flex flex-col justify-between group"
+          className="relative w-full min-h-[520px] bg-primary rounded-[3rem] overflow-hidden flex flex-col justify-center gap-12 group p-12 md:p-24"
         >
-          {/* Top row */}
-          <div className="flex items-start justify-between px-16 md:px-20 pt-16 relative z-10">
-            <span className="bg-secondary-container text-on-secondary-fixed-variant rounded-full text-xs uppercase tracking-[0.25em] font-bold px-5 py-2">
-              Флагман
+          {/* Badge */}
+          <div className="absolute top-12 left-12 md:top-20 md:left-24 z-10">
+            <span className="bg-primary-fixed/20 text-on-primary rounded-full text-xs uppercase tracking-[0.3em] font-bold px-6 py-2 border border-on-primary/10">
+              Флагманское решение
             </span>
           </div>
 
           {/* Content */}
-          <div className="px-16 md:px-20 pb-16 relative z-10 flex flex-col gap-12">
-            <h3 className="text-5xl md:text-7xl font-bold text-on-primary tracking-tighter leading-[1.05] max-w-3xl">
+          <div className="relative z-10 flex flex-col gap-10">
+            <h3 className="text-5xl md:text-7xl lg:text-8xl font-bold text-on-primary tracking-tight leading-[0.95] max-w-4xl">
               ИИ-Администратор
             </h3>
 
-            <p className="text-xl text-on-primary/75 max-w-2xl leading-relaxed">
-              Полная замена ставки администратора — без перерывов, выходных и больничных.
+            <p className="text-xl md:text-3xl text-on-primary/80 max-w-2xl leading-relaxed font-medium">
+              Полная замена ставки администратора — работает 24/7 без перерывов, выходных и человеческого фактора.
             </p>
 
-            {/* Metrics row */}
-            <div className="flex flex-col sm:flex-row gap-12 sm:gap-16">
-              {metrics.map(({ emoji, label, value }) => (
+            {/* Metrics row - simplified */}
+            <div className="flex flex-wrap gap-10 md:gap-16 pt-4">
+              {[
+                { label: "Установка", value: "1–3 дня" },
+                { label: "Экономия", value: "до 50%" },
+                { label: "ROI", value: "450%+" },
+              ].map(({ label, value }) => (
                 <div key={label} className="flex flex-col gap-1">
-                  <span className="text-4xl md:text-5xl font-extrabold text-on-primary tracking-tighter">
+                  <span className="text-3xl md:text-4xl font-extrabold text-on-primary tracking-tight">
                     {value}
                   </span>
-                  <span className="text-sm text-on-primary/60 uppercase tracking-[0.18em] font-semibold">
-                    {emoji} {label}
+                  <span className="text-xs md:text-sm text-on-primary/50 uppercase tracking-[0.2em] font-bold">
+                    {label}
                   </span>
                 </div>
               ))}
             </div>
 
             <button
-              onClick={() => onOpenModal("ИИ-Администратор")}
-              className="bg-on-primary text-primary px-10 py-4 rounded-full font-bold hover:scale-[1.03] active:scale-95 transition-transform flex items-center gap-2 w-fit text-lg"
+              onClick={() => onOpenModal("ИИ-Администратор (Флагман)")}
+              className="bg-on-primary text-primary px-12 py-5 rounded-full font-bold hover:scale-[1.03] active:scale-95 transition-all flex items-center gap-3 w-fit text-xl shadow-2xl"
             >
-              Узнать подробнее
-              <ArrowRight size={20} />
+              Запросить демо
+              <ArrowRight size={24} />
             </button>
           </div>
 
-          {/* Decorative icon */}
+          {/* Decorative elements - subtle clean feel */}
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-on-primary/5 rounded-full blur-[100px] pointer-events-none" />
           <BrainCircuit
-            size={400}
-            strokeWidth={0.5}
-            className="absolute -bottom-20 -right-20 text-on-primary opacity-[0.07] group-hover:scale-105 transition-transform duration-1000 rotate-12 pointer-events-none"
+            size={500}
+            strokeWidth={0.3}
+            className="absolute top-1/2 -right-40 -translate-y-1/2 text-on-primary opacity-[0.05] group-hover:scale-110 transition-transform duration-1000 rotate-12 pointer-events-none"
           />
         </motion.div>
       </div>

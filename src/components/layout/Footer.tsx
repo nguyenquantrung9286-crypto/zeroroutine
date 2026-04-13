@@ -1,24 +1,31 @@
 export function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-surface-container-low py-12 px-6 border-t border-surface-container-high/50">
-      <div className="max-w-7xl mx-auto flex flex-col items-center gap-8 text-center md:flex-row md:justify-between md:text-left">
-        <div className="flex flex-col gap-3 items-center md:items-start">
-          <a href="#" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-primary text-on-primary flex items-center justify-center font-bold text-lg rounded-xl">
-              НР
-            </div>
-            <span className="font-bold text-xl text-on-background tracking-tight">Ноль Рутины</span>
-          </a>
-          <span className="text-sm text-[#4B5563]">&copy; {currentYear} Все права защищены.</span>
+    <footer className="bg-surface py-20 px-6 border-t border-outline-variant/30">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+        <div className="flex flex-col gap-4 items-center md:items-start">
+          <div className="text-2xl font-bold tracking-tight text-on-background">
+            Ноль рутины
+          </div>
+          <p className="text-[#4B5563] text-sm">
+            © {new Intl.DateTimeFormat("ru", { year: "numeric" }).format(new Date())} Все права защищены.
+          </p>
         </div>
 
-        <div className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-4">
-          <a href="https://t.me/zeroroutinesbot" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
-            Телеграм
+        <div className="flex items-center gap-8">
+          <a
+            href="https://t.me/zeroroutinesbot"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-primary font-bold hover:opacity-80 transition-opacity"
+            aria-label="Telegram"
+          >
+            <Send size={20} />
+            Telegram
           </a>
-          <a href="/privacy" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
+          <a
+            href="/privacy"
+            className="text-[#4B5563] text-sm hover:text-on-background transition-colors"
+          >
             Конфиденциальность
           </a>
         </div>

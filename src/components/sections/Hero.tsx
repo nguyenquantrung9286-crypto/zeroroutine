@@ -17,81 +17,70 @@ const fadeUp: Variants = {
 
 export function Hero({ onOpenModal }: HeroProps) {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-20">
+    <section className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden px-6 pt-20">
       {/* Ambient glow background */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary-fixed/30 blur-[140px] rounded-full -translate-y-1/3 translate-x-1/4 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-primary-fixed/15 blur-[160px] rounded-full translate-y-1/3 -translate-x-1/4 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary-fixed/20 blur-[140px] rounded-full -translate-y-1/3 translate-x-1/4 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-primary-fixed/10 blur-[160px] rounded-full translate-y-1/3 -translate-x-1/4 pointer-events-none" />
 
-      <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center gap-8">
-        <motion.span
+      <div className="relative z-10 max-w-6xl mx-auto flex flex-col items-center text-center gap-10">
+        <motion.div
           custom={0}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="text-xs uppercase tracking-[0.25em] font-bold text-primary bg-primary-fixed/40 px-5 py-2 rounded-full"
+          className="flex flex-col items-center gap-6"
         >
-          ИИ-интегратор для малого бизнеса
-        </motion.span>
-
-        <motion.h1
-          custom={0.12}
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="text-6xl sm:text-7xl md:text-8xl font-extrabold tracking-tighter leading-[1.05] text-on-background"
-        >
-          Ноль рутины<br />в вашем бизнесе
-        </motion.h1>
+          <span className="text-xs uppercase tracking-[0.3em] font-bold text-primary bg-primary-fixed/30 px-6 py-2 rounded-full">
+            ИИ-интегратор номер 1
+          </span>
+          
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[7rem] font-extrabold tracking-tight leading-[0.95] text-on-background max-w-4xl">
+            ИИ-сотрудники<br />для вашего бизнеса
+          </h1>
+        </motion.div>
 
         <motion.p
-          custom={0.24}
+          custom={0.2}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="text-xl md:text-2xl text-[#4B5563] leading-relaxed max-w-2xl"
+          className="text-xl md:text-2xl text-[#4B5563] leading-relaxed max-w-2xl font-medium"
         >
-          Заменяем ставку администратора ИИ-решением за 1–3 дня. Сокращаем ФОТ на 40 000 ₽/мес и удерживаем 20% заявок, которые теряются в нерабочие часы.
+          Готовые решения под любую задачу — внедряем за 1–3 дня. Работают 24/7, не болеют, не уходят в отпуск.
         </motion.p>
 
         <motion.div
-          custom={0.36}
+          custom={0.4}
           variants={fadeUp}
           initial="hidden"
           animate="visible"
-          className="flex flex-col sm:flex-row gap-4 mt-4"
+          className="flex flex-col sm:flex-row gap-5 mt-6"
         >
+          <a
+            href="#catalog"
+            className="bg-primary text-on-primary px-12 py-5 rounded-full font-bold active:scale-95 transition-all flex items-center justify-center gap-2 hover:shadow-2xl hover:shadow-primary/30 text-xl"
+          >
+            Смотреть продукты
+          </a>
           <button
             onClick={() => onOpenModal("Hero: Получить демо")}
-            className="bg-gradient-to-br from-[#005235] to-[#1a6b4a] text-on-primary px-10 py-4 rounded-full font-semibold active:scale-95 transition-transform flex items-center justify-center gap-2 hover:shadow-xl hover:shadow-primary/20 text-lg"
+            className="bg-surface-container-high text-on-surface px-12 py-5 rounded-full font-bold hover:bg-surface-container-highest active:scale-95 transition-all flex items-center justify-center text-xl border border-outline-variant/20"
           >
-            Получить бесплатное демо
+            Получить демо
           </button>
-          <a
-            href="#demo"
-            className="bg-surface-container-high text-on-surface px-10 py-4 rounded-full font-semibold hover:bg-surface-container-highest active:scale-95 transition-all flex items-center justify-center text-lg"
-          >
-            Смотреть примеры
-          </a>
         </motion.div>
 
-        {/* Subtle metrics row */}
+        {/* Subtle scroll hint or minimalist space */}
         <motion.div
-          custom={0.48}
-          variants={fadeUp}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-wrap justify-center gap-10 mt-8 pt-8 border-t border-outline-variant/40 w-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
+          className="mt-20"
         >
-          {[
-            { value: "40 000 ₽", label: "экономия ФОТ/мес" },
-            { value: "+20%", label: "заявок не теряется" },
-            { value: "1–3 дня", label: "до полного запуска" },
-          ].map((s) => (
-            <div key={s.label} className="flex flex-col items-center gap-1">
-              <span className="text-2xl md:text-3xl font-extrabold text-primary tracking-tighter">{s.value}</span>
-              <span className="text-sm text-[#4B5563] uppercase tracking-[0.15em] font-medium">{s.label}</span>
-            </div>
-          ))}
+          <div className="flex flex-col items-center gap-3">
+            <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-[#4B5563]/50">Листайте вниз</span>
+            <div className="w-px h-12 bg-gradient-to-b from-primary/50 to-transparent" />
+          </div>
         </motion.div>
       </div>
     </section>

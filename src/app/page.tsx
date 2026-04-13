@@ -5,12 +5,9 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { Pain } from "@/components/sections/Pain";
-import { Mission } from "@/components/sections/Mission";
-import { Solutions } from "@/components/sections/Solutions";
-import { VideoDemo } from "@/components/sections/VideoDemo";
-import { RoiCalculator } from "@/components/sections/RoiCalculator";
-import { CTA } from "@/components/sections/CTA";
-import { Modal } from "@/components/ui/Modal";
+import { ProductCatalog } from "@/components/sections/ProductCatalog";
+import { HowItWorks } from "@/components/sections/HowItWorks";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,11 +26,19 @@ export default function Home() {
       
       <main className="flex-grow">
         <Hero onOpenModal={openModal} />
+        <SectionDivider />
+        <ProductCatalog onOpenModal={openModal} />
+        <SectionDivider />
         <Pain />
-        <Mission />
+        <SectionDivider />
+        <HowItWorks />
+        <SectionDivider />
         <Solutions onOpenModal={openModal} />
+        <SectionDivider />
         <VideoDemo />
+        <SectionDivider />
         <RoiCalculator onOpenModal={openModal} />
+        <SectionDivider />
         <CTA onOpenModal={openModal} />
       </main>
 
