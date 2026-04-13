@@ -3,81 +3,109 @@
 import { motion, Variants } from "framer-motion";
 import { AlertCircle, Clock, Users } from "lucide-react";
 
-const headerVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
+const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.18 } },
+};
+
+const painPoints = [
+  {
+    icon: AlertCircle,
+    title: "Забытые лиды",
+    desc: "Администратор пропускает до 20% звонков в пиковые часы и выходные.",
+  },
+  {
+    icon: Clock,
+    title: "Медленный ответ",
+    desc: "Клиенты ждут ответа часами. ИИ отвечает за 0.8 секунд 24/7.",
+  },
+];
+
 export function Pain() {
-  const containerVariants: Variants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.2 },
-    },
-  };
-
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } },
-  };
-
   return (
-    <section id="pain" className="py-24 bg-surface-container-low px-6">
-      <div className="max-w-7xl mx-auto flex flex-col gap-16">
+    <section id="pain" className="py-32 md:py-40 bg-surface-container-low px-6">
+      <div className="max-w-5xl mx-auto flex flex-col gap-20">
+
+        {/* Заголовок + акцентная цифра */}
         <motion.div
-          variants={headerVariants}
+          variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-8"
+          viewport={{ once: true, amount: 0.4 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-10"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-on-background max-w-2xl leading-tight">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-on-background max-w-xl leading-tight">
             Скрытые расходы убивают вашу маржу
           </h2>
-          <div className="flex flex-col md:items-end text-left md:text-right">
-            <span className="text-5xl md:text-6xl font-extrabold text-primary tracking-tighter mb-2">
+          <div className="flex flex-col md:items-end">
+            <span className="text-5xl md:text-6xl font-extrabold text-primary tracking-tighter mb-1">
               50 000 ₽
             </span>
-            <span className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant">
+            <span className="text-xs uppercase tracking-[0.2em] font-bold text-[#4B5563]">
               Средний ФОТ администратора в месяц
             </span>
           </div>
         </motion.div>
 
+        {/* Вертикальный список болей */}
         <motion.div
-          variants={containerVariants}
+          variants={stagger}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid md:grid-cols-3 gap-6 mt-4"
+          className="flex flex-col gap-12"
         >
-          <motion.div variants={cardVariants} className="bg-surface-container-lowest rounded-xl p-8 border-l-4 border-error/40 hover:-translate-y-1 transition-transform group shadow-sm">
-            <AlertCircle size={40} className="text-error mb-6 group-hover:scale-110 transition-transform origin-left" />
-            <h3 className="text-2xl font-bold mb-4 text-on-surface">Забытые лиды</h3>
-            <p className="text-on-surface-variant text-lg leading-relaxed">
-              Администратор пропускает до 20% звонков в пиковые часы и выходные.
-            </p>
-          </motion.div>
-
-          <motion.div variants={cardVariants} className="bg-surface-container-lowest rounded-xl p-8 border-l-4 border-error/40 hover:-translate-y-1 transition-transform group shadow-sm">
-            <Clock size={40} className="text-error mb-6 group-hover:scale-110 transition-transform origin-left" />
-            <h3 className="text-2xl font-bold mb-4 text-on-surface">Медленный ответ</h3>
-            <p className="text-on-surface-variant text-lg leading-relaxed">
-              Клиенты ждут ответа часами. ИИ отвечает за 0.8 секунд 24/7.
-            </p>
-          </motion.div>
-
-          <motion.div variants={cardVariants} className="bg-surface-container-lowest rounded-xl p-8 border-l-4 border-error/40 hover:-translate-y-1 transition-transform group shadow-sm">
-            <Users size={40} className="text-error mb-6 group-hover:scale-110 transition-transform origin-left" />
-            <h3 className="text-2xl font-bold mb-4 text-on-surface">Текучка кадров</h3>
-            <p className="text-on-surface-variant text-lg leading-relaxed">
-              Поиск и обучение нового сотрудника стоит бизнесу 3-х месячных ФОТ.
-            </p>
-          </motion.div>
+          {painPoints.map(({ icon: Icon, title, desc }) => (
+            <motion.div
+              key={title}
+              variants={fadeUp}
+              className="flex items-start gap-8"
+            >
+              <div className="w-12 h-12 shrink-0 rounded-2xl bg-error-container flex items-center justify-center mt-1">
+                <Icon size={24} className="text-error" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <h3 className="text-2xl font-bold text-on-surface">{title}</h3>
+                <p className="text-lg text-[#4B5563] leading-relaxed max-w-xl">{desc}</p>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
 
-        <span id="pricing-section"></span>
+        {/* Акцентный блок — текучка кадров */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.4 }}
+          className="flex flex-col md:flex-row items-start md:items-center gap-8 bg-surface-container-lowest rounded-3xl p-10 md:p-14 border border-outline-variant/30 shadow-sm"
+        >
+          <div className="w-14 h-14 shrink-0 rounded-2xl bg-error-container flex items-center justify-center">
+            <Users size={28} className="text-error" />
+          </div>
+          <div className="flex flex-col gap-3 flex-1">
+            <h3 className="text-2xl font-bold text-on-surface">Текучка кадров</h3>
+            <p className="text-lg text-[#4B5563] leading-relaxed">
+              Поиск и обучение нового сотрудника стоит бизнесу 3-х месячных ФОТ.
+            </p>
+          </div>
+          <div className="flex flex-col items-center md:items-end shrink-0">
+            <span className="text-5xl md:text-6xl font-extrabold text-error tracking-tighter leading-none">
+              3 ФОТ
+            </span>
+            <span className="text-xs uppercase tracking-[0.15em] font-bold text-[#4B5563] mt-1 text-center md:text-right">
+              стоимость замены одного сотрудника
+            </span>
+          </div>
+        </motion.div>
+
       </div>
+      <span id="pricing-section"></span>
     </section>
   );
 }

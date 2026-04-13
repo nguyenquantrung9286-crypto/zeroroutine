@@ -43,8 +43,8 @@ export function Mission() {
   ];
 
   return (
-    <section id="mission" className="py-24 bg-surface-container-low px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto flex flex-col gap-16">
+    <section id="mission" className="py-32 md:py-40 bg-surface-container-low px-6 overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-col gap-20">
         {/* Badge + заголовок */}
         <motion.div
           variants={badgeVariants}
@@ -62,7 +62,7 @@ export function Mission() {
             чтобы вы занимались главным
           </h2>
 
-          <p className="text-xl text-on-surface-variant leading-relaxed max-w-2xl">
+          <p className="text-xl text-[#4B5563] leading-relaxed max-w-2xl">
             Наша миссия: внедрять ИИ-решения, которые убирают операционку из бизнеса — чтобы владелец занимался развитием, а не текучкой. Мы не продаём &laquo;ботов&raquo; и не &laquo;настраиваем нейросети&raquo;. Мы заменяем ставку администратора, сокращаем ФОТ и удерживаем заявки, которые иначе теряются.
           </p>
         </motion.div>
@@ -73,7 +73,7 @@ export function Mission() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid md:grid-cols-3 gap-6"
+          className="grid md:grid-cols-3 gap-8"
         >
           {pillars.map((p, i) => (
             <motion.div
@@ -85,7 +85,7 @@ export function Mission() {
                 {p.icon}
               </div>
               <h3 className="text-xl font-bold text-on-surface">{p.title}</h3>
-              <p className="text-on-surface-variant leading-relaxed">{p.desc}</p>
+              <p className="text-[#4B5563] leading-relaxed">{p.desc}</p>
             </motion.div>
           ))}
         </motion.div>

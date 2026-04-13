@@ -173,7 +173,7 @@ export function VideoDemo() {
   };
 
   return (
-    <section id="demo" className="py-24 bg-surface px-6 overflow-hidden">
+    <section id="demo" className="py-32 md:py-40 bg-surface px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto flex flex-col gap-16">
         {/* Header */}
         <motion.div
@@ -189,7 +189,7 @@ export function VideoDemo() {
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-on-background mb-6">
             Продукт в действии
           </h2>
-          <p className="text-xl text-on-surface-variant leading-relaxed">
+          <p className="text-xl text-[#4B5563] leading-relaxed">
             Посмотрите, как ИИ-администратор общается с клиентами в Telegram — в реальном времени, без скриптов, 24/7.
           </p>
         </motion.div>
@@ -251,7 +251,7 @@ export function VideoDemo() {
                     "Удерживает 20% заявок, которые иначе теряются в нерабочие часы",
                     "Полная установка за 1–3 дня. Окупаемость уже за 3–4 дня",
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-on-surface-variant">
+                    <li key={i} className="flex items-start gap-3 text-[#4B5563]">
                       <span className="w-6 h-6 bg-primary-fixed/50 text-primary rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                         ✓
                       </span>

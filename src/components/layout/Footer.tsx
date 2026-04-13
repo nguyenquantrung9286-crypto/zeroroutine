@@ -11,15 +11,12 @@ export function Footer() {
             </div>
             <span className="font-bold text-xl text-on-background tracking-tight">Ноль Рутины</span>
           </a>
-          <span className="text-sm text-on-surface-variant">&copy; {currentYear} Все права защищены.</span>
+          <span className="text-sm text-[#4B5563]">&copy; {currentYear} Все права защищены.</span>
         </div>
 
         <div className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-4">
           <a href="https://t.me/zeroroutinesbot" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
             Телеграм
-          </a>
-          <a href="https://t.me/zeroroutinesbot" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
-            Напишите нам
           </a>
           <a href="/privacy" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
             Конфиденциальность

@@ -14,7 +14,7 @@ const ctaVariants = {
 
 export function CTA({ onOpenModal }: CTAProps) {
   return (
-    <section id="cases" className="py-32 bg-surface px-6 relative overflow-hidden">
+    <section id="cases" className="py-32 md:py-40 bg-surface px-6 relative overflow-hidden">
       <motion.div
         variants={ctaVariants}
         initial="hidden"
@@ -30,7 +30,7 @@ export function CTA({ onOpenModal }: CTAProps) {
           Готовы к трансформации?
         </h2>
         
-        <p className="text-xl text-on-surface-variant mb-12 max-w-2xl mx-auto leading-relaxed relative z-10">
+        <p className="text-xl text-[#4B5563] mb-12 max-w-2xl mx-auto leading-relaxed relative z-10">
           Получите бесплатное демо и аудит процессов от ведущих экспертов. Мы наглядно покажем, где бизнес теряет деньги и как это исправить.
         </p>
 
