@@ -7,12 +7,18 @@ interface CTAProps {
   onOpenModal: (source: string) => void;
 }
 
+const ctaVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { opacity: 1, scale: 1 },
+};
+
 export function CTA({ onOpenModal }: CTAProps) {
   return (
     <section id="cases" className="py-32 bg-surface px-6 relative overflow-hidden">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        variants={ctaVariants}
+        initial="hidden"
+        whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         className="max-w-4xl mx-auto bg-surface-container-low p-12 md:p-20 rounded-[3rem] text-center flex flex-col items-center relative overflow-hidden shadow-sm"
       >
@@ -37,7 +43,7 @@ export function CTA({ onOpenModal }: CTAProps) {
           </button>
           
           <a
-            href="https://t.me/YOUR_HANDLE"
+            href="https://t.me/zeroroutinesbot"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto text-primary font-bold hover:text-primary-container active:scale-95 transition-all flex items-center justify-center gap-2 px-8 py-5"

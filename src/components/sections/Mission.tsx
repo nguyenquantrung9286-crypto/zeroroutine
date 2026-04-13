@@ -14,6 +14,16 @@ export function Mission() {
     visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 90 } },
   };
 
+  const badgeVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const blockquoteVariants: Variants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0 },
+  };
+
   const pillars = [
     {
       icon: <Target size={28} />,
@@ -27,8 +37,8 @@ export function Mission() {
     },
     {
       icon: <Shield size={28} />,
-      title: "Гарантия роста",
-      desc: "Фиксируем KPI до старта. Если цели не достигнуты — возвращаем деньги.",
+      title: "Бесшовная интеграция",
+      desc: "Адаптируем ИИ под ваши текущие процессы без остановки работы бизнеса.",
     },
   ];
 
@@ -37,8 +47,9 @@ export function Mission() {
       <div className="max-w-7xl mx-auto flex flex-col gap-16">
         {/* Badge + заголовок */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={badgeVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
           className="flex flex-col gap-6 max-w-3xl"
         >
@@ -81,8 +92,9 @@ export function Mission() {
 
         {/* Цитата / миссия */}
         <motion.blockquote
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          variants={blockquoteVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.6 }}
           className="border-l-4 border-primary pl-8 py-2 max-w-3xl"
         >
@@ -90,7 +102,7 @@ export function Mission() {
             «Мы внедряем ИИ-решения, которые убирают рутину из бизнеса&nbsp;—&nbsp;чтобы владелец занимался главным, а не операционкой»
           </p>
           <footer className="mt-4 text-sm font-bold uppercase tracking-[0.15em] text-primary">
-            Ноль Рутины — команда ИИ-интеграторов
+            Ноль Рутины — ИИ-интегратор для малого бизнеса
           </footer>
         </motion.blockquote>
       </div>

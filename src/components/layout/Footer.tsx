@@ -15,16 +15,13 @@ export function Footer() {
         </div>
 
         <div className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-4">
-          <a href="https://t.me/YOUR_HANDLE" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
+          <a href="https://t.me/zeroroutinesbot" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
             Телеграм
           </a>
-          <a href="#" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
-            Линкедин
-          </a>
-          <a href="#" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
+          <a href="https://t.me/zeroroutinesbot" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
             Напишите нам
           </a>
-          <a href="#" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
+          <a href="/privacy" className="text-xs uppercase tracking-[0.2em] font-bold text-on-surface-variant hover:text-primary transition-colors">
             Конфиденциальность
           </a>
         </div>

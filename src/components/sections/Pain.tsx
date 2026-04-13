@@ -3,6 +3,11 @@
 import { motion, Variants } from "framer-motion";
 import { AlertCircle, Clock, Users } from "lucide-react";
 
+const headerVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export function Pain() {
   const containerVariants: Variants = {
     hidden: {},
@@ -20,8 +25,9 @@ export function Pain() {
     <section id="pain" className="py-24 bg-surface-container-low px-6">
       <div className="max-w-7xl mx-auto flex flex-col gap-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           className="flex flex-col md:flex-row md:items-end justify-between gap-8"
         >

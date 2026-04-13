@@ -8,6 +8,11 @@ interface NavbarProps {
   onOpenModal: (source: string) => void;
 }
 
+const mobileMenuVariants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export function Navbar({ onOpenModal }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -23,7 +28,7 @@ export function Navbar({ onOpenModal }: NavbarProps) {
   return (
     <nav className="fixed top-0 w-full z-50 bg-[#fbf9f8]/80 backdrop-blur-xl transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
+        <a href="/" className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
           <div className="w-10 h-10 bg-primary text-on-primary flex items-center justify-center font-bold text-lg rounded-xl group-hover:scale-105 transition-transform">
             НР
           </div>
@@ -65,9 +70,10 @@ export function Navbar({ onOpenModal }: NavbarProps) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            variants={mobileMenuVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
             className="md:hidden bg-surface-container-lowest border-b border-surface-container absolute w-full left-0 top-20 shadow-lg"
           >
             <div className="flex flex-col p-6 gap-6 text-lg font-medium text-on-surface text-center">

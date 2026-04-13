@@ -144,6 +144,16 @@ function TelegramChat({ demo, isActive }: { demo: Demo; isActive: boolean }) {
   );
 }
 
+const headerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const titleVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export function VideoDemo() {
   const [activeTab, setActiveTab] = useState(0);
   const [played, setPlayed] = useState<Record<string, boolean>>({});
@@ -167,8 +177,9 @@ export function VideoDemo() {
       <div className="max-w-7xl mx-auto flex flex-col gap-16">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
           className="text-center max-w-3xl mx-auto"
         >
@@ -207,8 +218,9 @@ export function VideoDemo() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            variants={titleVariants}
+            initial="hidden"
+            animate="visible"
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.3 }}
           >

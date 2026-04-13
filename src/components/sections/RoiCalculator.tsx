@@ -8,31 +8,40 @@ interface RoiProps {
   onOpenModal: (source: string) => void;
 }
 
+const titleVariants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: { opacity: 1, x: 0 },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, x: 30 },
+  visible: { opacity: 1, x: 0 },
+};
+
+const valueVariants = {
+  initial: { opacity: 0.5, y: -5 },
+  animate: { opacity: 1, y: 0 },
+};
+
 export function RoiCalculator({ onOpenModal }: RoiProps) {
   const [employees, setEmployees] = useState(25);
-  const [annualSavings, setAnnualSavings] = useState(0);
-  const [monthlySavings, setMonthlySavings] = useState(0);
-  const [lostLeadsSavings, setLostLeadsSavings] = useState(0);
 
-  useEffect(() => {
-    // ФОТ: среднее сокращение 40 000 ₽/мес на каждого замещаемого (1 ставка = ~1 администратор)
-    const admins = Math.max(1, Math.round(employees / 10));
-    const fotMonthly = admins * 40_000;
-    // Теряющиеся заявки: ~20% от ежемесячного потока, средний чек 2 000 ₽, 200 обращений/мес на сотрудника
-    const leadsMonthly = Math.round(employees * 0.2 * 2_000);
-    const totalMonthly = fotMonthly + leadsMonthly;
+  const admins = Math.max(1, Math.round(employees / 10));
+  const fotMonthly = admins * 40_000;
+  const leadsMonthly = Math.round(employees * 0.2 * 2_000);
+  const totalMonthly = fotMonthly + leadsMonthly;
 
-    setMonthlySavings(totalMonthly);
-    setLostLeadsSavings(leadsMonthly);
-    setAnnualSavings(totalMonthly * 12);
-  }, [employees]);
+  const monthlySavings = totalMonthly;
+  const lostLeadsSavings = leadsMonthly;
+  const annualSavings = totalMonthly * 12;
 
   return (
     <section id="roi" className="py-24 bg-[#1b1c1c] px-6 text-on-secondary">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          variants={titleVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           className="flex flex-col"
         >
@@ -72,8 +81,9 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          variants={cardVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           className="bg-surface-container-lowest/5 backdrop-blur-md border border-white/10 rounded-[2rem] p-10 md:p-12 flex flex-col relative overflow-hidden group"
         >
@@ -87,8 +97,9 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
               <span className="text-white/80">Сотрудников в штате</span>
               <motion.span
                 key={employees}
-                initial={{ opacity: 0.5, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
+                variants={valueVariants}
+                initial="initial"
+                animate="animate"
                 className="text-3xl font-bold text-white"
               >
                 {employees}

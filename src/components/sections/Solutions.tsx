@@ -20,12 +20,18 @@ export function Solutions({ onOpenModal }: SolutionsProps) {
     visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 80 } },
   };
 
+  const headerVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <section id="solutions" className="py-24 bg-surface px-6">
       <div className="max-w-7xl mx-auto flex flex-col gap-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           className="text-center max-w-3xl mx-auto"
         >
@@ -46,7 +52,7 @@ export function Solutions({ onOpenModal }: SolutionsProps) {
         >
           <motion.div
             variants={bentoVariants}
-            className="md:col-span-8 md:row-span-2 bg-primary rounded-[2rem] p-10 md:p-12 flex flex-col justify-between relative overflow-hidden group hover:scale-[1.01] transition-transform shadow-lg"
+            className="md:col-span-12 md:row-span-2 bg-primary rounded-[2rem] p-10 md:p-12 flex flex-col justify-between relative overflow-hidden group hover:scale-[1.01] transition-transform shadow-lg"
           >
             <div className="relative z-10 flex items-start justify-between">
               <span className="bg-secondary-container text-on-secondary-fixed-variant rounded-full text-xs uppercase tracking-[0.2em] font-bold px-4 py-2">
@@ -93,44 +99,7 @@ export function Solutions({ onOpenModal }: SolutionsProps) {
             />
           </motion.div>
 
-          <motion.div
-            variants={bentoVariants}
-            className="md:col-span-4 bg-surface-container-low hover:bg-surface-container-high rounded-[2rem] p-8 md:p-10 flex flex-col relative transition-colors group shadow-sm"
-          >
-            <div className="w-16 h-16 bg-primary-fixed rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
-              <Bot size={32} />
-            </div>
-            <h3 className="text-2xl font-bold text-on-surface mb-4">HR-бот</h3>
-            <p className="text-on-surface-variant text-lg leading-relaxed">
-              Автоматический скрининг резюме, проведение первичных интервью и онбординг.
-            </p>
-            <button
-              onClick={() => onOpenModal("HR-бот")}
-              className="mt-auto flex items-center gap-2 text-primary font-bold hover:text-primary-container transition-colors w-fit pt-8"
-            >
-              Подробнее <ArrowRight size={20} />
-            </button>
           </motion.div>
-
-          <motion.div
-            variants={bentoVariants}
-            className="md:col-span-4 bg-surface-container-low hover:bg-surface-container-high rounded-[2rem] p-8 md:p-10 flex flex-col relative transition-colors group shadow-sm"
-          >
-            <div className="w-16 h-16 bg-secondary-fixed rounded-2xl flex items-center justify-center text-secondary mb-8 group-hover:scale-110 transition-transform">
-              <Star size={32} />
-            </div>
-            <h3 className="text-2xl font-bold text-on-surface mb-4">Управление репутацией</h3>
-            <p className="text-on-surface-variant text-lg leading-relaxed">
-              Умный сбор отзывов, ответы на карты и нейтрализация негатива до публикации.
-            </p>
-            <button
-              onClick={() => onOpenModal("Управление репутацией")}
-              className="mt-auto flex items-center gap-2 text-primary font-bold hover:text-primary-container transition-colors w-fit pt-8"
-            >
-              Подробнее <ArrowRight size={20} />
-            </button>
-          </motion.div>
-        </motion.div>
       </div>
     </section>
   );

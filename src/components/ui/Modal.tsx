@@ -10,8 +10,24 @@ interface ModalProps {
   source?: string;
 }
 
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+const modalVariants = {
+  hidden: { opacity: 0, scale: 0.95, y: 10 },
+  visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 25 } },
+};
+
+const successVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1 },
+};
+
 export function Modal({ isOpen, onClose, source = "General" }: ModalProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [phone, setPhone] = useState("");
 
   const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,10 +45,12 @@ export function Modal({ isOpen, onClose, source = "General" }: ModalProps) {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submit from source:", source);
-    // Имитация отправки
+    setIsSubmitting(true);
+    // Имитация реального сетевого запроса (1.5 сек)
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    setIsSubmitting(false);
     setSubmitted(true);
   };
 
@@ -49,19 +67,20 @@ export function Modal({ isOpen, onClose, source = "General" }: ModalProps) {
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            variants={backdropVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
             onClick={handleClose}
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             aria-hidden="true"
           />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 10 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
             className="relative z-10 bg-surface-container-lowest rounded-[2rem] p-8 md:p-12 w-full max-w-lg shadow-2xl max-h-[90vh] overflow-y-auto"
             role="dialog"
             aria-modal="true"
@@ -94,6 +113,7 @@ export function Modal({ isOpen, onClose, source = "General" }: ModalProps) {
                       type="text"
                       id="name"
                       required
+                      minLength={2}
                       className="w-full bg-surface-container-low border-transparent rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest outline-none transition-all text-on-surface text-lg"
                       placeholder="Ваше имя"
                     />
@@ -107,6 +127,8 @@ export function Modal({ isOpen, onClose, source = "General" }: ModalProps) {
                       type="tel"
                       id="phone"
                       required
+                      pattern="^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$"
+                      title="Формат: +7 (XXX) XXX-XX-XX"
                       value={phone}
                       onChange={handlePhoneInput}
                       className="w-full bg-surface-container-low border-transparent rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest outline-none transition-all text-on-surface text-lg"
@@ -122,6 +144,7 @@ export function Modal({ isOpen, onClose, source = "General" }: ModalProps) {
                       type="text"
                       id="company"
                       required
+                      minLength={2}
                       className="w-full bg-surface-container-low border-transparent rounded-xl px-5 py-4 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest outline-none transition-all text-on-surface text-lg"
                       placeholder="ООО Инновация"
                     />
@@ -146,16 +169,18 @@ export function Modal({ isOpen, onClose, source = "General" }: ModalProps) {
 
                   <button
                     type="submit"
-                    className="w-full bg-primary text-on-primary rounded-full py-5 mt-4 font-bold text-xl active:scale-95 transition-transform"
+                    disabled={isSubmitting}
+                    className="w-full bg-primary text-on-primary rounded-full py-5 mt-4 font-bold text-xl active:scale-95 transition-transform disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    Отправить заявку
+                    {isSubmitting ? "Отправка..." : "Отправить заявку"}
                   </button>
                 </form>
               </div>
             ) : (
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
+                variants={successVariants}
+                initial="hidden"
+                animate="visible"
                 className="flex flex-col items-center justify-center text-center py-10 mt-6"
               >
                 <div className="w-24 h-24 bg-primary-fixed rounded-full flex items-center justify-center text-primary mb-6">
