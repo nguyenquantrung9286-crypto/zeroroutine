@@ -161,6 +161,3 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
     </section>
   );
 }
-    </section>
-  );
-}

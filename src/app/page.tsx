@@ -7,6 +7,11 @@ import { Hero } from "@/components/sections/Hero";
 import { Pain } from "@/components/sections/Pain";
 import { ProductCatalog } from "@/components/sections/ProductCatalog";
 import { HowItWorks } from "@/components/sections/HowItWorks";
+import { Solutions } from "@/components/sections/Solutions";
+import { VideoDemo } from "@/components/sections/VideoDemo";
+import { RoiCalculator } from "@/components/sections/RoiCalculator";
+import { CTA } from "@/components/sections/CTA";
+import { Modal } from "@/components/ui/Modal";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 
 export default function Home() {

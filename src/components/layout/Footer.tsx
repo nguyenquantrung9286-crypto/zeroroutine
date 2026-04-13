@@ -1,3 +1,5 @@
+import { Send } from "lucide-react";
+
 export function Footer() {
   return (
     <footer className="bg-surface py-20 px-6 border-t border-outline-variant/30">

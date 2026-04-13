@@ -90,7 +90,3 @@ export function Pain() {
     </section>
   );
 }
-      <span id="pricing-section"></span>
-    </section>
-  );
-}
