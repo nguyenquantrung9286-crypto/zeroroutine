@@ -17,7 +17,6 @@ import { SectionDivider } from "@/components/ui/SectionDivider";
 import { motion, useScroll, useSpring } from "framer-motion";
 
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
-import { Assistant3D } from "@/components/ui/Assistant3D";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -75,7 +74,6 @@ export default function Home() {
 
       <Footer />
 
-      <Assistant3D />
       <Modal isOpen={isModalOpen} onClose={closeModal} source={modalSource} />
     </>
   );
