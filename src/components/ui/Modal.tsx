@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle, X, ChevronDown } from "lucide-react";
+import { CheckCircle, X } from "lucide-react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 
 interface ModalProps {

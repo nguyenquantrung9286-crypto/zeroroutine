@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { MessageSquare, Star, TrendingUp, Users, ArrowRight } from "lucide-react";
+import React from "react";
 
 interface ProductCatalogProps {
   onOpenModal: (source: string) => void;
@@ -53,6 +54,92 @@ const products = [
   },
 ];
 
+function ProductCard({ p, onOpenModal }: { p: typeof products[0], onOpenModal: (s: string) => void }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      variants={fadeUp}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateY,
+        rotateX,
+        transformStyle: "preserve-3d",
+      }}
+      className="group relative bg-white border border-outline-variant/30 rounded-[2.5rem] p-10 md:p-12 transition-all hover:shadow-2xl hover:shadow-primary/5 flex flex-col justify-between gap-10"
+    >
+      <div style={{ transform: "translateZ(50px)" }} className="flex flex-col gap-8">
+        <div className="flex justify-between items-start">
+          <div className={`w-16 h-16 rounded-3xl ${p.accent} flex items-center justify-center transition-transform group-hover:scale-110 duration-500`}>
+            <p.icon size={32} className={p.iconColor} />
+          </div>
+          {p.badge && (
+            <span className="bg-primary-fixed text-on-primary-fixed px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest animate-pulse">
+              {p.badge}
+            </span>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <h3 className="text-3xl md:text-4xl font-bold text-on-surface tracking-tight leading-tight">
+            {p.name}
+          </h3>
+          <p className="text-lg md:text-xl text-[#4B5563] leading-relaxed font-medium">
+            {p.description}
+          </p>
+        </div>
+      </div>
+
+      <button
+        onClick={() => onOpenModal(`Продукт: ${p.name}`)}
+        className="flex items-center gap-3 text-primary font-bold text-lg md:text-xl group/btn"
+        style={{ transform: "translateZ(30px)" }}
+      >
+        Запросить демо
+        <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center transition-all group-hover/btn:bg-primary group-hover/btn:text-white group-hover/btn:translate-x-1">
+          <ArrowRight size={20} />
+        </div>
+      </button>
+
+      {/* Glow effect */}
+      <motion.div
+        className="absolute inset-0 rounded-[2.5rem] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+        style={{
+          background: useTransform(
+            [mouseXSpring, mouseYSpring],
+            ([mx, my]) => `radial-gradient(circle at ${((mx as number) + 0.5) * 100}% ${((my as number) + 0.5) * 100}%, rgba(0, 82, 53, 0.05) 0%, transparent 60%)`
+          ),
+        }}
+      />
+    </motion.div>
+  );
+}
+
 export function ProductCatalog({ onOpenModal }: ProductCatalogProps) {
   return (
     <section id="catalog" className="py-32 md:py-40 px-6 bg-surface-container-lowest">
@@ -81,43 +168,7 @@ export function ProductCatalog({ onOpenModal }: ProductCatalogProps) {
           className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
         >
           {products.map((p) => (
-            <motion.div
-              key={p.id}
-              variants={fadeUp}
-              className="group relative bg-white border border-outline-variant/30 rounded-[2.5rem] p-10 md:p-12 transition-all hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-1 flex flex-col justify-between gap-10"
-            >
-              <div className="flex flex-col gap-8">
-                <div className="flex justify-between items-start">
-                  <div className={`w-16 h-16 rounded-3xl ${p.accent} flex items-center justify-center transition-transform group-hover:scale-110 duration-500`}>
-                    <p.icon size={32} className={p.iconColor} />
-                  </div>
-                  {p.badge && (
-                    <span className="bg-primary-fixed text-on-primary-fixed px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest animate-pulse">
-                      {p.badge}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex flex-col gap-4">
-                  <h3 className="text-3xl md:text-4xl font-bold text-on-surface tracking-tight leading-tight">
-                    {p.name}
-                  </h3>
-                  <p className="text-lg md:text-xl text-[#4B5563] leading-relaxed font-medium">
-                    {p.description}
-                  </p>
-                </div>
-              </div>
-
-              <button
-                onClick={() => onOpenModal(`Продукт: ${p.name}`)}
-                className="flex items-center gap-3 text-primary font-bold text-lg md:text-xl group/btn"
-              >
-                Запросить демо
-                <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center transition-all group-hover/btn:bg-primary group-hover/btn:text-white group-hover/btn:translate-x-1">
-                  <ArrowRight size={20} />
-                </div>
-              </button>
-            </motion.div>
+            <ProductCard key={p.id} p={p} onOpenModal={onOpenModal} />
           ))}
         </motion.div>
       </div>

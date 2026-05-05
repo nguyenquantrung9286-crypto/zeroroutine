@@ -2,7 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import { useState } from "react";
-import { Calculator } from "lucide-react";
+import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 
 interface RoiProps {
   onOpenModal: (source: string) => void;
@@ -18,25 +18,7 @@ const cardVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const, delay: 0.15 } },
 };
 
-const valueVariants = {
-  initial: { opacity: 0.5, y: -5 },
-  animate: { opacity: 1, y: 0 },
-};
-
-const bigStats = [
-  {
-    value: "40 000 ₽",
-    desc: "Среднее сокращение ФОТ в месяц на одну замещённую ставку",
-  },
-  {
-    value: "+20%",
-    desc: "Заявок возвращается благодаря работе 24/7 в нерабочие часы",
-  },
-  {
-    value: "3–4 дня",
-    desc: "Срок окупаемости первого месяца подключения",
-  },
-];
+const formatter = (v: number) => new Intl.NumberFormat("ru-RU").format(Math.floor(v));
 
 export function RoiCalculator({ onOpenModal }: RoiProps) {
   const [employees, setEmployees] = useState(25);
@@ -79,15 +61,9 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
             <div className="flex flex-col gap-6">
               <div className="flex justify-between items-end">
                 <span className="text-white/50 text-xs uppercase tracking-[0.2em] font-bold">Сотрудников в штате</span>
-                <motion.span
-                  key={employees}
-                  variants={valueVariants}
-                  initial="initial"
-                  animate="animate"
-                  className="text-6xl font-extrabold text-white tabular-nums tracking-tighter"
-                >
-                  {employees}
-                </motion.span>
+                <span className="text-6xl font-extrabold text-white tabular-nums tracking-tighter">
+                  <AnimatedCounter value={employees} />
+                </span>
               </div>
               <input
                 type="range"
@@ -104,13 +80,13 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
               <div className="flex justify-between items-center py-6 border-b border-white/10">
                 <span className="text-white/60 text-lg">Сокращение ФОТ / мес</span>
                 <span className="font-bold text-white text-xl tabular-nums">
-                  {new Intl.NumberFormat("ru-RU").format(fotMonthly)} ₽
+                  <AnimatedCounter value={fotMonthly} formatter={formatter} /> ₽
                 </span>
               </div>
               <div className="flex justify-between items-center py-6 border-b border-white/10">
                 <span className="text-white/60 text-lg">Возврат заявок / мес</span>
                 <span className="font-bold text-white text-xl tabular-nums">
-                  {new Intl.NumberFormat("ru-RU").format(leadsMonthly)} ₽
+                  <AnimatedCounter value={leadsMonthly} formatter={formatter} /> ₽
                 </span>
               </div>
             </div>
@@ -123,10 +99,10 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
             <div className="relative z-10 flex flex-col gap-2">
               <p className="text-primary-fixed/60 text-xs uppercase tracking-[0.3em] font-bold">Ваша экономия в год</p>
               <div className="text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary-fixed tracking-tight leading-none py-4">
-                {new Intl.NumberFormat("ru-RU").format(annualSavings)} ₽
+                <AnimatedCounter value={annualSavings} formatter={formatter} /> ₽
               </div>
               <p className="text-white/40 text-lg">
-                ≈ {new Intl.NumberFormat("ru-RU").format(totalMonthly)} ₽ экономии ежемесячно
+                ≈ <AnimatedCounter value={totalMonthly} formatter={formatter} /> ₽ экономии ежемесячно
               </p>
             </div>
 
@@ -142,13 +118,19 @@ export function RoiCalculator({ onOpenModal }: RoiProps) {
         {/* Big stats row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/10 pt-20">
           {[
-            { value: "40 000 ₽", label: "среднее сокращение ФОТ" },
-            { value: "+20%", label: "заявок не теряется" },
-            { value: "3–4 дня", label: "окупаемость внедрения" },
+            { value: 40000, label: "среднее сокращение ФОТ", suffix: " ₽" },
+            { value: 20, label: "заявок не теряется", prefix: "+" , suffix: "%" },
+            { value: 3, label: "окупаемость внедрения", suffix: "–4 дня", isStatic: true },
           ].map((s) => (
             <div key={s.label} className="flex flex-col gap-3">
               <span className="text-5xl md:text-6xl font-extrabold text-white tracking-tighter">
-                {s.value}
+                {s.isStatic ? "3–4 дня" : (
+                  <>
+                    {s.prefix}
+                    <AnimatedCounter value={s.value} formatter={formatter} />
+                    {s.suffix}
+                  </>
+                )}
               </span>
               <span className="text-xs uppercase tracking-[0.2em] font-bold text-white/40">
                 {s.label}

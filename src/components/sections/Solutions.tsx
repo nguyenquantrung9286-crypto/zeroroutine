@@ -12,12 +12,6 @@ const fadeUp: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-const metrics = [
-  { emoji: "⚡", label: "Установка", value: "1–3 дня" },
-  { emoji: "💰", label: "Окупаемость", value: "3–4 дня" },
-  { emoji: "📈", label: "ROI", value: "450%+" },
-];
-
 export function Solutions({ onOpenModal }: SolutionsProps) {
   return (
     <section id="solutions" className="py-32 md:py-40 bg-surface px-6">

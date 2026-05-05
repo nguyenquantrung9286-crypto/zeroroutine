@@ -13,6 +13,8 @@ const mobileMenuVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
+import Link from "next/link";
+
 export function Navbar({ onOpenModal }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,14 +30,14 @@ export function Navbar({ onOpenModal }: NavbarProps) {
   return (
     <nav className="fixed top-0 w-full z-50 bg-[#fbf9f8]/80 backdrop-blur-xl transition-all duration-300">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
+        <Link href="/" className="flex items-center gap-3 group" onClick={() => setIsOpen(false)}>
           <div className="w-10 h-10 bg-primary text-on-primary flex items-center justify-center font-bold text-lg rounded-xl group-hover:scale-105 transition-transform">
             НР
           </div>
           <span className="font-bold text-xl tracking-tight text-on-background hidden sm:block">
             Ноль Рутины
           </span>
-        </a>
+        </Link>
 
         <div className="hidden md:flex flex-1 justify-center items-center gap-8 text-on-surface-variant font-medium text-[15px]">
           {links.map((link) => (
