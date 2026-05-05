@@ -3,6 +3,7 @@
 import { motion, Variants, useTransform, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { ThreeScene } from "@/components/ui/ThreeScene";
 
 interface HeroProps {
   onOpenModal: (source: string) => void;
@@ -36,6 +37,7 @@ export function Hero({ onOpenModal }: HeroProps) {
 
   return (
     <section className="relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden px-6 pt-20">
+      <ThreeScene />
       {/* Ambient glow background with mouse parallax */}
       <motion.div 
         style={{ x: springX, y: springY }}
